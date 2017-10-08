@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://weblemon.challenge.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://weblemon.challenge.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://weblemon.challenge.org/">
+      <s:element name="Fibonacci">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sequentialNumber" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FibonacciResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FibonacciResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XmlToJson">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sourceXmlString" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="XmlToJsonResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XmlToJsonResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FibonacciSoapIn">
+    <wsdl:part name="parameters" element="tns:Fibonacci" />
+  </wsdl:message>
+  <wsdl:message name="FibonacciSoapOut">
+    <wsdl:part name="parameters" element="tns:FibonacciResponse" />
+  </wsdl:message>
+  <wsdl:message name="XmlToJsonSoapIn">
+    <wsdl:part name="parameters" element="tns:XmlToJson" />
+  </wsdl:message>
+  <wsdl:message name="XmlToJsonSoapOut">
+    <wsdl:part name="parameters" element="tns:XmlToJsonResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SampleServiceSoap">
+    <wsdl:operation name="Fibonacci">
+      <wsdl:input message="tns:FibonacciSoapIn" />
+      <wsdl:output message="tns:FibonacciSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="XmlToJson">
+      <wsdl:input message="tns:XmlToJsonSoapIn" />
+      <wsdl:output message="tns:XmlToJsonSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SampleServiceSoap" type="tns:SampleServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Fibonacci">
+      <soap:operation soapAction="http://weblemon.challenge.org/Fibonacci" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlToJson">
+      <soap:operation soapAction="http://weblemon.challenge.org/XmlToJson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SampleServiceSoap12" type="tns:SampleServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Fibonacci">
+      <soap12:operation soapAction="http://weblemon.challenge.org/Fibonacci" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="XmlToJson">
+      <soap12:operation soapAction="http://weblemon.challenge.org/XmlToJson" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SampleService">
+    <wsdl:port name="SampleServiceSoap" binding="tns:SampleServiceSoap">
+      <soap:address location="http://localhost/SampleService/SampleService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SampleServiceSoap12" binding="tns:SampleServiceSoap12">
+      <soap12:address location="http://localhost/SampleService/SampleService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
